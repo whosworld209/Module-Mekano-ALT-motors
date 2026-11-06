@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10090a">
+    <meta name="description" content="Location et vente de véhicules, assistance Mekano et services GPS à Lomé, Togo.">
+    <title>ALT Motors | Location, vente & Mekano au Togo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="brand-link" href="#hero" aria-label="ALT Motors, accueil"><img class="brand-logo" src="https://alt-motors.com/templates/admin/assets/AT-L.png" alt="Africa's Logistics and Transport"></a>
+        <a class="header-contact" href="tel:+22897759232">
+            <span class="contact-icon" aria-hidden="true">☎</span>
+            <span><small>Notre ligne d'assistance téléphonique :</small><strong>+228 97 75 92 32</strong></span>
+        </a>
+        <nav class="site-nav" id="mainNav" aria-label="Navigation principale">
+            <a href="#hero">Accueil</a>
+            <a href="#location">Location de voitures</a>
+            <a href="#vente">Voitures à vendre</a>
+            <a href="#mekano">Mekano & pièces</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="hero" aria-label="Véhicules à la une">
+            <img class="hero-image" id="heroImage" src="https://alt-motors.com/templates/utilisateur/images/slider1.jpg" alt="Audi RS 6 Avant GT">
+            <div class="hero-shade"></div>
+            <div class="hero-content" id="sliderContent" aria-live="polite"></div>
+            <button class="hero-arrow hero-arrow-prev" type="button" aria-label="Véhicule précédent" onclick="changeSlide(-1)">‹</button>
+            <button class="hero-arrow hero-arrow-next" type="button" aria-label="Véhicule suivant" onclick="changeSlide(1)">›</button>
+            <div class="hero-pagination" id="sliderDots" aria-label="Choisir un véhicule à la une"></div>
+            <a class="hero-scroll" href="#services">Découvrir ALT Motors <span aria-hidden="true">↓</span></a>
+        </section>
+
+        <section class="about section-wrap" id="services">
+            <div class="about-image-wrap">
+                <img src="https://alt-motors.com/templates/utilisateur/images/video1.jpg" alt="Africa's Logistics and Transport">
+                <span class="image-caption">Lomé, Togo <i></i></span>
+            </div>
+            <div class="about-copy">
+                <p class="eyebrow">AFRICA'S LOGISTIC TRANSPORT</p>
+                <h2>Services de qualité à prix abordable</h2>
+                <p class="body-copy">Des services fiables et flexibles pour louer une voiture, commander un véhicule sur mesure ou trouver le véhicule qui vous convient.</p>
+                <ul class="service-list">
+                    <li>Location de voiture</li>
+                    <li>Commande de voiture</li>
+                    <li>Vente de voiture</li>
+                    <li>Vente et installation de GPS</li>
+                    <li>Location de chauffeur</li>
+                </ul>
+                <a class="text-link" href="https://wa.me/22897759232" target="_blank" rel="noreferrer">Contacter ALT Motors sur WhatsApp <span aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+
+        <section class="inventory-controls" aria-label="Filtrer les véhicules">
+            <div class="section-wrap">
+                <div class="filter-bar">
+                    <label>Service<select id="filterType" onchange="filterVehicles()"><option value="all">Tous les services</option><option value="rent">Location</option><option value="sale">Vente</option></select></label>
+                    <label>Catégorie<select id="filterCategory" onchange="filterVehicles()"><option value="all">Toutes</option><option value="SUV">SUV</option><option value="Berline">Berline</option></select></label>
+                    <label>Transmission<select id="filterTransmission" onchange="filterVehicles()"><option value="all">Toutes</option><option value="Automatique">Automatique</option><option value="Manuelle">Manuelle</option></select></label>
+                    <button class="filter-reset" type="button" onclick="resetFilters()">Effacer les filtres</button>
+                </div>
+                <p id="emptyResults" class="empty-results" hidden>Aucun véhicule ne correspond à ces critères.</p>
+            </div>
+        </section>
+
+        <section class="inventory-section" id="location">
+            <div class="section-wrap">
+                <div class="section-heading">
+                    <div><p class="eyebrow">VÉHICULES DISPONIBLES</p><h2>À louer</h2></div>
+                    <p>Consultez la fiche officielle pour confirmer la disponibilité et les modalités de réservation.</p>
+                </div>
+                <div id="rentalGrid" class="vehicle-grid"></div>
+            </div>
+        </section>
+
+        <section class="inventory-section inventory-sale" id="vente">
+            <div class="section-wrap">
+                <div class="section-heading">
+                    <div><p class="eyebrow">VÉHICULES DISPONIBLES</p><h2>À vendre</h2></div>
+                    <p>Consultez la fiche officielle pour confirmer le prix et les détails du véhicule.</p>
+                </div>
+                <div id="saleGrid" class="vehicle-grid"></div>
+            </div>
+        </section>
+
+        <section class="mekano-section" id="mekano">
+            <div class="section-wrap">
+                <div class="section-heading">
+                    <div><p class="eyebrow">ATELIER & ASSISTANCE</p><h2>Mekano, simplement.</h2></div>
+                    <p>Entretien, diagnostic et pièces : indiquez votre besoin, notre équipe vous accompagne.</p>
+                </div>
+                <div class="mekano-layout">
+                    <form class="service-panel" onsubmit="searchPartsByVin(event)">
+                        <h3>Pièces compatibles</h3>
+                        <p>Indiquez les références de votre véhicule ou de la pièce pour demander une vérification à l'équipe.</p>
+                        <label for="searchType">Type de recherche</label>
+                        <div class="parts-search">
+                            <select id="searchType" onchange="updatePartsSearch()"><option value="vin">Par VIN / plaque</option><option value="oem">Par référence OEM</option></select>
+                            <input type="text" id="partsQuery" placeholder="Entrez le VIN ou la plaque" autocomplete="off" required>
+                            <button type="submit">Demander la vérification</button>
+                        </div>
+                        <div id="partsResults" class="parts-results" aria-live="polite"></div>
+                    </form>
+                    <form class="service-panel" id="mekanoForm" onsubmit="handleMekanoBooking(event)">
+                        <h3>Assistance Mekano & GPS</h3>
+                        <p>Choisissez une prestation et un lieu. L'équipe confirmera le tarif et la disponibilité par WhatsApp.</p>
+                        <label>Prestation<select name="service" required><option value="Vidange et entretien">Vidange et entretien</option><option value="Diagnostic informatique">Diagnostic informatique</option><option value="Installation de balise GPS">Installation de balise GPS</option><option value="Autre prestation Mekano">Autre prestation Mekano</option></select></label>
+                        <div class="form-row">
+                            <label>Date souhaitée<input name="date" type="date" required></label>
+                            <label>Lieu<select name="location" required><option value="Atelier ALT Motors">Atelier ALT Motors</option><option value="Domicile à Lomé">À domicile (Lomé)</option></select></label>
+                        </div>
+                        <label>Votre nom<input name="name" type="text" autocomplete="name" required></label>
+                        <label>Votre numéro WhatsApp<input name="phone" type="tel" autocomplete="tel" placeholder="+228" required></label>
+                        <button class="solid-button" type="submit">Continuer sur WhatsApp <span aria-hidden="true">↗</span></button>
+                        <p class="request-status" id="mekanoStatus" aria-live="polite"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+        <div class="section-wrap footer-main">
+            <div><a class="brand-link footer-brand" href="#hero" aria-label="ALT Motors, accueil"><img class="brand-logo" src="https://alt-motors.com/templates/admin/assets/AT-L.png" alt="Africa's Logistics and Transport"></a><p>Votre concessionnaire automobile au Togo.</p></div>
+            <div><h2>Nous joindre</h2><a href="tel:+22897759232">+228 97 75 92 32</a><a href="mailto:equipedecube@gmail.com">equipedecube@gmail.com</a></div>
+            <div><h2>Horaires de l'agence</h2><p>Lundi – samedi<br>9h00 – 18h30</p><p>Dimanche : fermé</p></div>
+        </div>
+        <div class="footer-bottom"><span>© 2024 Africa's Logistics and Transport</span><a href="#hero">Retour en haut ↑</a></div>
+    </footer>
+
+    <div class="modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true" onclick="if(event.target === this) closeBookingModal()">
+        <div class="modal-panel">
+            <button class="modal-close" type="button" aria-label="Fermer" onclick="closeBookingModal()">×</button>
+            <p class="eyebrow">ALT MOTORS</p>
+            <h2 id="modalTitle">Demande véhicule</h2>
+            <p class="modal-intro" id="modalIntro">Renseignez vos coordonnées et votre préférence de paiement.</p>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+    <a class="whatsapp-float" href="https://wa.me/22897759232" target="_blank" rel="noreferrer" aria-label="Contacter ALT Motors sur WhatsApp au +228 97 75 92 32">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>
+    </a>
+    <script src="index.js" defer></script>
+</body>
+</html>
